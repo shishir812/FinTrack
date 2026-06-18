@@ -1,0 +1,1 @@
+web: gunicorn e_fintrack_backend.wsgi:application
