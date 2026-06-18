@@ -1,0 +1,414 @@
+:root {
+  background: #eef3f1;
+  color: #172026;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#root,
+.app-layout,
+.app-content,
+.ant-col,
+.ant-card {
+  min-width: 0;
+}
+
+.ant-auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(14, 94, 89, 0.84), rgba(23, 32, 38, 0.92)),
+    url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+.auth-card {
+  width: min(460px, 100%);
+  box-shadow: 0 26px 80px rgba(17, 31, 35, 0.28);
+}
+
+.auth-brand {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.auth-brand h2,
+.sider-brand h4,
+.app-header h3 {
+  margin: 0;
+}
+
+.brand-avatar {
+  background: #0e5e59;
+}
+
+.auth-tabs {
+  margin: 18px 0;
+  border-bottom: 0;
+}
+
+.role-picker {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 14px;
+  background: #f5faf8;
+  border: 1px solid #dce7e3;
+  border-radius: 8px;
+}
+
+.role-picker .ant-segmented {
+  width: 100%;
+}
+
+.role-picker .ant-segmented-item-label {
+  min-height: 34px;
+  line-height: 34px;
+  white-space: normal;
+}
+
+.demo-credentials {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid #dce7e3;
+  border-radius: 8px;
+}
+
+.demo-account-list {
+  display: grid;
+  gap: 8px;
+}
+
+.demo-account-button {
+  height: auto;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 11px;
+  text-align: left;
+  white-space: normal;
+}
+
+.demo-account-button .ant-typography {
+  margin: 0;
+}
+
+.role-alert {
+  margin-top: 18px;
+}
+
+.top-alert {
+  margin-top: 16px;
+}
+
+.app-layout {
+  min-height: 100vh;
+  background: #eef3f1;
+}
+
+.app-sider {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 22px 16px;
+  background: #172026 !important;
+}
+
+.sider-brand {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 0 8px;
+}
+
+.sider-brand h4,
+.sider-brand .ant-typography {
+  color: #fff;
+}
+
+.side-menu {
+  margin-top: 22px;
+  background: transparent;
+  border-inline-end: 0 !important;
+}
+
+.side-menu .ant-menu-item {
+  color: #dbe8e4;
+}
+
+.side-menu .ant-menu-item-selected {
+  background: rgba(14, 94, 89, 0.28);
+  color: #fff;
+}
+
+.side-menu a {
+  color: inherit;
+}
+
+.logout-button {
+  margin-top: 28px;
+}
+
+.app-header {
+  height: auto;
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 28px;
+  background: #fff;
+  border-bottom: 1px solid #dfe8e4;
+  line-height: 1.3;
+}
+
+.app-content {
+  padding: 24px;
+}
+
+.page-alert {
+  margin-bottom: 16px;
+}
+
+.section-search {
+  width: 280px;
+  max-width: 100%;
+}
+
+.section-card,
+.section-row,
+#dashboard,
+#move-money,
+#beneficiaries,
+#user-registration,
+#loans,
+#admin {
+  margin-bottom: 18px;
+}
+
+.dashboard-row,
+.money-row {
+  align-items: stretch;
+}
+
+.dashboard-row .ant-col,
+.money-row .ant-col,
+.admin-row .ant-col {
+  display: flex;
+}
+
+.dashboard-row .ant-card,
+.money-row .ant-card,
+.admin-row > .ant-col > .ant-card {
+  width: 100%;
+}
+
+.dashboard-row .ant-card {
+  min-height: 154px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-row .ant-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dashboard-row .ant-statistic-content {
+  word-break: break-word;
+}
+
+.money-row .ant-card {
+  height: 100%;
+  min-height: 304px;
+}
+
+.money-row .ant-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.money-row .ant-form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.money-row .ant-form > .ant-btn {
+  margin-top: auto;
+}
+
+.balance-card {
+  background: #0e5e59;
+}
+
+.balance-card .ant-statistic-title,
+.balance-card .ant-statistic-content,
+.balance-card .ant-typography {
+  color: #fff;
+}
+
+.chart {
+  min-height: 220px;
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  padding-top: 20px;
+  overflow-x: auto;
+}
+
+.bar-group {
+  min-width: 74px;
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+
+.bars {
+  height: 160px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  border-bottom: 1px solid #d8e1dd;
+}
+
+.bars span {
+  width: 20px;
+  min-height: 4px;
+  border-radius: 4px 4px 0 0;
+}
+
+.income {
+  background: #0e5e59;
+}
+
+.expense {
+  background: #cf513f;
+}
+
+.form-alert,
+.loan-alert {
+  margin-bottom: 14px;
+}
+
+.transfer-mode {
+  margin-bottom: 16px;
+}
+
+.transfer-mode .ant-segmented-item-label {
+  min-height: 32px;
+  line-height: 32px;
+  white-space: normal;
+}
+
+.loan-list-item {
+  padding-inline: 0 !important;
+}
+
+.loan-card {
+  width: 100%;
+  background: #fbfdfc;
+}
+
+.loan-card-head {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.ant-card {
+  border-color: #dce7e3;
+}
+
+.ant-card-head {
+  gap: 12px;
+}
+
+.ant-card-head-wrapper {
+  gap: 12px;
+}
+
+.ant-table-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.ant-table-content {
+  overflow-x: auto !important;
+}
+
+@media (max-width: 991px) {
+  .app-sider {
+    position: static;
+    height: auto;
+  }
+
+  .app-sider .ant-layout-sider-zero-width-trigger {
+    inset-inline-end: 0;
+  }
+
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-row .ant-card {
+    min-height: 140px;
+  }
+
+  .ant-card-head-wrapper {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ant-card-extra,
+  .section-search {
+    width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .ant-auth {
+    padding: 16px;
+  }
+
+  .demo-account-button {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .app-content {
+    padding: 16px;
+  }
+
+  .app-header {
+    padding: 16px;
+  }
+
+  .dashboard-row .ant-card {
+    min-height: 132px;
+  }
+
+  .chart {
+    gap: 12px;
+  }
+}
