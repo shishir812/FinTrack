@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 import tempfile
 from pathlib import Path
+from urllib.parse import parse_qsl, urlparse, unquote
 
 from corsheaders.defaults import default_headers
 
@@ -43,6 +44,20 @@ def _env_list(name, default=None):
     if value is None:
         return default or []
     return [item.strip() for item in value.split(',') if item.strip()]
+
+
+def _postgres_database_from_url(database_url):
+    parsed = urlparse(database_url)
+    return {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': unquote(parsed.path.lstrip('/')),
+        'USER': unquote(parsed.username or ''),
+        'PASSWORD': unquote(parsed.password or ''),
+        'HOST': parsed.hostname or '',
+        'PORT': str(parsed.port or 5432),
+        'CONN_MAX_AGE': int(os.environ.get('DB_CONN_MAX_AGE', '60')),
+        'OPTIONS': dict(parse_qsl(parsed.query)),
+    }
 
 
 _load_env_file(BASE_DIR / '.env')
@@ -110,6 +125,7 @@ WSGI_APPLICATION = 'e_fintrack_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DB_ENGINE = os.environ.get('FINTRACK_DB_ENGINE', 'postgresql').lower()
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DB_ENGINE == 'sqlite':
     DATABASES = {
@@ -117,6 +133,10 @@ if DB_ENGINE == 'sqlite':
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.environ.get('FINTRACK_SQLITE_PATH', Path(tempfile.gettempdir()) / 'fintrack.sqlite3'),
         }
+    }
+elif DATABASE_URL:
+    DATABASES = {
+        'default': _postgres_database_from_url(DATABASE_URL)
     }
 else:
     DATABASES = {
