@@ -1,1 +1,1 @@
-web: gunicorn e_fintrack_backend.wsgi:application
+web: gunicorn e_fintrack_backend.wsgi:application --bind 0.0.0.0:$PORT

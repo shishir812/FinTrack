@@ -16,6 +16,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl, urlparse, unquote
 
 from corsheaders.defaults import default_headers
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +49,11 @@ def _env_list(name, default=None):
 
 def _postgres_database_from_url(database_url):
     parsed = urlparse(database_url)
+    if parsed.scheme not in {'postgres', 'postgresql'} or not parsed.hostname or not parsed.path.lstrip('/'):
+        raise ImproperlyConfigured(
+            'DATABASE_URL must be the complete Render Internal Database URL, '
+            'like postgresql://user:password@host:5432/database.'
+        )
     return {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': unquote(parsed.path.lstrip('/')),
