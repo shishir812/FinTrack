@@ -47,6 +47,17 @@ def _env_list(name, default=None):
     return [item.strip() for item in value.split(',') if item.strip()]
 
 
+def _env_origin_list(name, default=None):
+    origins = []
+    for item in _env_list(name, default):
+        parsed = urlparse(item)
+        if parsed.scheme and parsed.netloc:
+            origins.append(f'{parsed.scheme}://{parsed.netloc}')
+        else:
+            origins.append(item.rstrip('/'))
+    return origins
+
+
 def _postgres_database_from_url(database_url):
     parsed = urlparse(database_url)
     if parsed.scheme not in {'postgres', 'postgresql'} or not parsed.hostname or not parsed.path.lstrip('/'):
@@ -199,7 +210,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = _env_list('CORS_ALLOWED_ORIGINS', [
+CORS_ALLOWED_ORIGINS = _env_origin_list('CORS_ALLOWED_ORIGINS', [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
     'http://127.0.0.1:5174',
