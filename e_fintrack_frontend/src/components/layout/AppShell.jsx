@@ -1,4 +1,5 @@
-import { Avatar, Button, Layout, Menu, Space, Tag, Typography } from 'antd';
+import { useState } from 'react';
+import { Avatar, Button, Drawer, Layout, Menu, Space, Tag, Typography } from 'antd';
 import {
   AuditOutlined,
   BankOutlined,
@@ -6,6 +7,7 @@ import {
   CreditCardOutlined,
   DashboardOutlined,
   LogoutOutlined,
+  MenuOutlined,
   SendOutlined,
   TeamOutlined,
   UserAddOutlined,
@@ -29,11 +31,15 @@ function buildMenuItems({ canManageLoans, isAdmin }) {
 }
 
 export default function AppShell({ user, account, canManageLoans, isAdmin, onLogout, children }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuItems = buildMenuItems({ canManageLoans, isAdmin });
+  const renderMenu = () => (
+    <Menu mode="inline" items={menuItems} className="side-menu" onClick={() => setMobileMenuOpen(false)} />
+  );
 
   return (
     <Layout className="app-layout">
-      <Sider width={272} className="app-sider" breakpoint="lg" collapsedWidth="0">
+      <Sider width={272} className="app-sider">
         <Space align="center" size={12} className="sider-brand">
           <Avatar icon={<BankOutlined />} className="brand-avatar" />
           <div>
@@ -41,7 +47,7 @@ export default function AppShell({ user, account, canManageLoans, isAdmin, onLog
             <Text>{user.username}</Text>
           </div>
         </Space>
-        <Menu mode="inline" items={menuItems} className="side-menu" />
+        {renderMenu()}
         <Button icon={<LogoutOutlined />} onClick={onLogout} block className="logout-button">
           Logout
         </Button>
@@ -49,8 +55,18 @@ export default function AppShell({ user, account, canManageLoans, isAdmin, onLog
 
       <Layout>
         <Header className="app-header">
-          <div>
-            <Title level={3}>{user.username}</Title>
+          <div className="header-title">
+            <Button
+              type="text"
+              icon={<MenuOutlined />}
+              className="mobile-menu-button"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open navigation"
+            />
+            <div>
+              <Title level={3}>{user.username}</Title>
+              <Text type="secondary">FinTrack dashboard</Text>
+            </div>
           </div>
           <Space wrap>
             <Tag color="blue">{user.role}</Tag>
@@ -59,6 +75,25 @@ export default function AppShell({ user, account, canManageLoans, isAdmin, onLog
         </Header>
         <Content className="app-content">{children}</Content>
       </Layout>
+
+      <Drawer
+        title={(
+          <Space align="center" size={12}>
+            <Avatar icon={<BankOutlined />} className="brand-avatar" />
+            <span>FinTrack</span>
+          </Space>
+        )}
+        placement="left"
+        open={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        width={300}
+        className="mobile-nav-drawer"
+      >
+        {renderMenu()}
+        <Button icon={<LogoutOutlined />} onClick={onLogout} block className="logout-button">
+          Logout
+        </Button>
+      </Drawer>
     </Layout>
   );
 }
