@@ -395,6 +395,71 @@ body {
   overflow-wrap: anywhere;
 }
 
+.account-status-item {
+  display: block !important;
+  padding-block: 18px !important;
+}
+
+.account-status-content {
+  width: 100%;
+  min-width: 0;
+}
+
+.account-status-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.account-holder-identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.account-holder-identity strong {
+  color: #172b25;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.account-holder-label,
+.account-detail span {
+  color: #6b7d77;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.account-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 20px;
+}
+
+.account-detail {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.account-detail strong {
+  color: #263a34;
+  font-size: 14px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.account-status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
 .ant-table-wrapper {
   max-width: 100%;
   overflow: hidden;
@@ -558,6 +623,15 @@ body {
 
   .ant-card-head-title {
     padding: 12px 0 !important;
+  }
+
+  .account-details {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .account-status-actions .ant-btn {
+    flex: 1;
   }
 
   .ant-form-item {

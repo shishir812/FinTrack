@@ -65,27 +65,63 @@ export default function AdminApprovalsSection({
         </Col>
         <Col xs={24} xl={10}>
           <Card
-            title="Account status"
-            extra={<SearchBox value={accountSearch} onChange={onAccountSearch} placeholder="Search employee or member" />}
+            title="Account holders"
+            extra={<SearchBox value={accountSearch} onChange={onAccountSearch} placeholder="Search account holder" />}
           >
             <List
+              className="account-status-list"
               dataSource={filteredAccounts}
               renderItem={(item) => (
-                <List.Item
-                  actions={[
-                    <Button key="edit" onClick={() => openProfileEditor(item)}>
-                      Edit profile
-                    </Button>,
-                    <Button key="status" onClick={() => onAdminAction(`/admin/accounts/${item.id}/${item.status === 'ACTIVE' ? 'freeze' : 'unfreeze'}/`)}>
-                      {item.status === 'ACTIVE' ? 'Freeze' : 'Unfreeze'}
-                    </Button>,
-                  ]}
-                >
-                  <List.Item.Meta
-                    title={item.user.full_name || item.user.username}
-                    description={`${item.user.username} - ${item.account_number} - ${money(item.balance)}${item.user.location ? ` - ${item.user.location}` : ''}${item.user.phone_number ? ` - ${item.user.phone_number}` : ''}`}
-                  />
-                  <Tag color={statusColor(item.status)}>{item.status}</Tag>
+                <List.Item className="account-status-item">
+                  <div className="account-status-content">
+                    <div className="account-status-header">
+                      <div className="account-holder-identity">
+                        <span className="account-holder-label">Account holder</span>
+                        <strong>{item.user.full_name || item.user.username}</strong>
+                      </div>
+                      <Tag color={statusColor(item.status)}>{item.status}</Tag>
+                    </div>
+
+                    <div className="account-details">
+                      <div className="account-detail">
+                        <span>Username</span>
+                        <strong>{item.user.username}</strong>
+                      </div>
+                      <div className="account-detail">
+                        <span>Account number</span>
+                        <strong>{item.account_number}</strong>
+                      </div>
+                      <div className="account-detail">
+                        <span>Available balance</span>
+                        <strong>{money(item.balance)}</strong>
+                      </div>
+                      {item.user.email && (
+                        <div className="account-detail">
+                          <span>Email</span>
+                          <strong>{item.user.email}</strong>
+                        </div>
+                      )}
+                      {item.user.location && (
+                        <div className="account-detail">
+                          <span>Location</span>
+                          <strong>{item.user.location}</strong>
+                        </div>
+                      )}
+                      {item.user.phone_number && (
+                        <div className="account-detail">
+                          <span>Phone number</span>
+                          <strong>{item.user.phone_number}</strong>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="account-status-actions">
+                      <Button onClick={() => openProfileEditor(item)}>Edit profile</Button>
+                      <Button onClick={() => onAdminAction(`/admin/accounts/${item.id}/${item.status === 'ACTIVE' ? 'freeze' : 'unfreeze'}/`)}>
+                        {item.status === 'ACTIVE' ? 'Freeze account' : 'Unfreeze account'}
+                      </Button>
+                    </div>
+                  </div>
                 </List.Item>
               )}
             />

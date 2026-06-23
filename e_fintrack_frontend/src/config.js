@@ -1,4 +1,9 @@
-export const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
+function normalizeApiUrl(value) {
+  const baseUrl = (value || 'http://127.0.0.1:8000/api').replace(/\/+$/, '');
+  return baseUrl.endsWith('/api') ? baseUrl : `${baseUrl}/api`;
+}
+
+export const API_URL = normalizeApiUrl(import.meta.env.VITE_API_URL);
 
 export const ROLE_OPTIONS = [
   { label: 'Admin', value: 'ADMIN' },
